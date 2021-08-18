@@ -1,0 +1,119 @@
+@page
+<DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <title>Interview Report</title>
+</head>
+<body>
+    
+@model InterviewTool.src.Models.Interview
+    
+    <div class="container">
+        <div class="card mt-3">
+            <h5 class="card-header display-5 text-primary">@Model.CandidateName</h5>
+            <div class="card-body">
+                @if (!Model.ExperienceAndCerts.Skipped)
+                {
+                    <h5 class="card-title">Candidate certificates and overrall experience.</h5>
+                    <h5 class="text-primary">@Model.ExperienceAndCerts.Input</h5>
+                }
+                <hr class="my-4">
+                <h5 class="text-primary">@Model.InterviewerName</h5>
+                <p class="lead">@DateTime.Now.ToShortDateString()</p>
+            </div>
+        </div>
+
+        <table class="table table-striped table-hover mt-4">
+            <thead>
+                <tr>
+                    <th scope="col">Area</th>
+                    <th scope="col">Technology</th>
+                    <th class="text-center" scope="col">None</th>
+                    <th class="text-center" scope="col">Beginner</th>
+                    <th class="text-center" scope="col">Intermediate</th>
+                    <th class="text-center" scope="col">Advanced</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ 
+                    string area = Model.Questions.First().Area;
+                    int third = Model.GradeRange.MaxGrade / 3;
+                };
+                @foreach (var q in Model.Questions)
+                {
+                    if (!q.Area.Equals(area))
+                    {
+                        <tr>
+                            <th scope="row">@q.Area</th>
+                            <td></td>
+                            <td class="text-center"></td>
+                            <td class="text-center"></td>
+                            <td class="text-center"></td>
+                            <td class="text-center"></td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <th scope="row"></th>
+                            <td class="text-center">@q.Tecnhology</td>
+                            <td class="text-center">@(q.Grade == 0 ? "X" : "")</td>
+                            <td class="text-center">@(q.Grade > 0 && q.Grade <= third ? "X" : "")</td>
+                            <td class="text-center">@(q.Grade > third && q.Grade <= third * 2 ? "X" : "")</td>
+                            <td class="text-center">@(q.Grade > third * 2 && q.Grade <= third * 3 ? "X" : "")</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+        @if (!Model.BusinessComments.Skipped)
+        {
+            <div class="card">
+                <h5 class="card-header">Business experience (Transaction systems, B2B, Telecom, etc.)</h5>
+                <div class="card-body">
+                    <p class="card-text">@Model.BusinessComments.Input</p>
+                </div>
+            </div>
+        }
+
+        <div class="card mt-3">
+            <h5 class="card-header">Comments and Observations</h5>
+            <div class="card-body">
+                <p class="card-text">@Model.FinalComments.Input</p>
+            </div>
+        </div>
+
+        <div class="card mt-3">
+            <h5 class="card-header">Conclusions</h5>
+            <div class="card-body">
+                <h1 class="d-inline">Grade <span class="badge bg-secondary">@Model.FinalGrade.Acronym</span></h1>
+                @if (Model.Accepted)
+                {
+                    <h1 class="d-inline float-end"><span class="badge bg-success">Accepted</span></h1>
+                }
+                else
+                {
+                    <h1 class="d-inline float-end"><span class="badge bg-warning text-dark">Rejected</span></h1>
+                }
+            </div>
+        </div>
+        
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

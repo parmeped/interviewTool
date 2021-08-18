@@ -1,20 +1,24 @@
 [
   {
-    "Category": "Test2",
-    "Ques": "SomeQuestion2"
+    "Area": "Test2",
+    "Technology": "",
+    "Query": "SomeQuestion2"
   },
   {
-    "Category": "Test",
-    "Ques": "SomeQuestion",
+    "Area": "Test",
+    "Technology": "",
+    "Query": "SomeQuestion",
     "Answer": "This would be the answer"
   },
   {
-    "Category": "Test",
-    "Ques": "SomeQuestion2",
+    "Area": "Test",
+    "Technology": "",
+    "Query": "SomeQuestion2",
     "Answer": "This would be the answer, again"
   },
   {
-    "Category": "Test2",
-    "Ques": "SomeQuestion2"
+    "Area": "Test2",
+    "Technology": "",
+    "Query": "SomeQuestion2"
   }
 ]

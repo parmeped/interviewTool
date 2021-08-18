@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InterviewTool.src.Models;
+using System;
 using System.Linq;
 
 namespace InterviewTool.src.PrintStrategy
@@ -22,14 +23,14 @@ namespace InterviewTool.src.PrintStrategy
             interview.Questions
                 .Where(q => !q.Skipped)
                 .GroupBy(q => new { q.Area })
-                .Select(x => new { x.Key.Category, Average = x.Average(g => g.Grade) })
+                .Select(x => new { x.Key.Area, Average = x.Average(g => g.Grade) })
                 .ToList()
                 .ForEach(rs =>
                 {
-                    Helpers.PrintMsgWithoutSeparator(rs.Category, ConsoleColor.Green);
+                    Helpers.PrintMsgWithoutSeparator(rs.Area, ConsoleColor.Green);
                     Helpers.PrintMsgWithoutSeparator(rs.Average.ToString(), ConsoleColor.Yellow);
                 });
-            Helpers.PrintMsgWithoutSeparator($"Final grade: {interview.GetFinalGrade()}", ConsoleColor.Green);
+            Helpers.PrintMsgWithoutSeparator($"Final grade: {interview.GetFinalScore()}", ConsoleColor.Green);
         }
     }
 }

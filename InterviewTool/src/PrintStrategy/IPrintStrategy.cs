@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using InterviewTool.src.Models;
 
 namespace InterviewTool.src.PrintStrategy
 {

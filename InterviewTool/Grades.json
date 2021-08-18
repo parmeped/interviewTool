@@ -1,0 +1,12 @@
+[
+  {
+    "Name": "SomeGradeName",
+    "Acronym": "SGN",
+    "RequiredScore": 1
+  },
+  {
+    "Name": "AnotherOne",
+    "Acronym": "AO",
+    "RequiredScore": 2
+  }
+]

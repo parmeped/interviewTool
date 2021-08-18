@@ -3,21 +3,42 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace InterviewTool.src
+namespace InterviewTool.src.Models
 {
     public class Interview
     {
-        public Interview(string interviewerName, List<Question> questions)
+        public Interview(
+            string interviewerName
+            , List<Question> questions
+            , List<Grade> grades
+            , string htmlTemplatePath
+            , InterviewPart businessComments
+            , InterviewPart finalComments
+            , InterviewPart expAndCerts
+            , (int, int) gradeRange)
         {
             InterviewerName = interviewerName;
             Questions = questions;
+            Grades = grades;
+            HtmlTemplatePath = htmlTemplatePath;
+            BusinessComments = businessComments;
+            FinalComments = finalComments;
+            ExperienceAndCerts = expAndCerts;
+            GradeRange = gradeRange;
         }
-
+        public readonly (int MinGrade, int MaxGrade) GradeRange;
         private IPrintStrategy _printStrategy { get; set; } = new ScreenPrint();
         public string CandidateName { get; set; }
+        public InterviewPart BusinessComments { get; set; }
+        public InterviewPart FinalComments { get; set; }
+        public InterviewPart ExperienceAndCerts { get; set; }
+        public Grade FinalGrade { get; set; }
         public readonly string InterviewerName;
+        public readonly string HtmlTemplatePath;
+        public bool Accepted { get; set; } = false;
         public List<Question> Questions { get; set; } = new List<Question>(8);
-        public double GetFinalGrade() => !Questions.Any() ? 0 : Questions.Where(x => !x.Skipped).Average(x => x.Grade);
+        public List<Grade> Grades { get; set; } = new List<Grade>(8);
+        public double GetFinalScore() => !Questions.Any() ? 0 : Questions.Where(x => !x.Skipped).Average(x => x.Grade);
         public void SetStrategy(IPrintStrategy strategy) => _printStrategy = strategy ?? throw new ArgumentNullException(nameof(strategy));
         public void PrintInfo()
         {
@@ -76,7 +97,7 @@ namespace InterviewTool.src
         }
         public bool WaitForInput()
         {
-            Console.WriteLine("Waiting for input..");
+            Console.WriteLine($"Waiting for input ({GradeRange.MinGrade}-{GradeRange.MaxGrade})..");
             var keyPress = Console.ReadLine();
             
             if (Enum.TryParse(keyPress.ToUpper(), out ConsoleKey key) && key == ConsoleKey.S)
