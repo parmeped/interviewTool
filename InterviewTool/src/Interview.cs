@@ -29,8 +29,9 @@ namespace InterviewTool.src
 
     public class QuestionDto
     {
-        public string Category { get; set; }
-        public string Ques { get; set; }
+        public string Area { get; set; }
+        public string Technology { get; set; }
+        public string Query { get; set; }
         public string Answer { get; set; }
     }
 
@@ -39,14 +40,16 @@ namespace InterviewTool.src
         public Question(int minGrade, int maxGrade, QuestionDto dto)
         {
             GradeRange = (minGrade, maxGrade);
-            Ques = dto.Ques;
+            Query = dto.Query;
             Answer = dto.Answer;
-            Category = dto.Category;
+            Area = dto.Area;
+            Tecnhology = dto.Technology;
         }
 
         public readonly (int MinGrade, int MaxGrade) GradeRange;
-        public readonly string Category;
-        public readonly string Ques;
+        public readonly string Area;
+        public readonly string Tecnhology;
+        public readonly string Query;
         public readonly string Answer = "";
         public bool Skipped { get; private set; } = false;
         public int Grade { get; private set; }
@@ -65,7 +68,7 @@ namespace InterviewTool.src
             Skipped = true;
             Console.WriteLine("Skipped!");
         }
-        public void PrintQuestion() => Helpers.PrintQuestionMsg($"Q: {Ques}");
+        public void PrintQuestion() => Helpers.PrintQuestionMsg($"Q: {Query}");
         public void PrintAnswer()
         {
             if (!string.IsNullOrEmpty(Answer))

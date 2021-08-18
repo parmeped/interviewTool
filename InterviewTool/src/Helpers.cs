@@ -27,7 +27,7 @@ namespace InterviewTool.src
         public static void PrintNoNoMsg(string msg) => PrintMsgWithoutSeparator(msg, ConsoleColor.Red);
         public static void PrintSuccessMsg(string msg) => PrintMsgWithSeparator(ConsoleColor.Green, msg);
         public static void PrintQuestionMsg(string q) => PrintMsgWithoutSeparator(q, ConsoleColor.Yellow);
-        public static void PrintAnswerMsg(string a) => PrintMsgWithoutSeparator(a, ConsoleColor.Gray);
+        public static void PrintAnswerMsg(string a) => PrintMsgWithoutSeparator(a, ConsoleColor.DarkGreen);
         public static void PrintLoadingMsg(string entityLoading)
         {
             Console.WriteLine();

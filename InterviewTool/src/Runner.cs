@@ -19,7 +19,7 @@ namespace InterviewTool.src
             var minRange = configuration.GetValue<int>("MinRange");
             var maxRange = configuration.GetValue<int>("MaxRange");
             var path = Path.Combine(Directory.GetParent(AppContext.BaseDirectory).FullName, questionPath);
-            var questions = LoadQuestions(Path.Combine(Directory.GetParent(AppContext.BaseDirectory).FullName, questionPath)).OrderBy(x => x.Category);
+            var questions = LoadQuestions(Path.Combine(Directory.GetParent(AppContext.BaseDirectory).FullName, questionPath)).OrderBy(x => x.Area);
             _interview = new Interview(_interviewer, questions.Select(x => new Question(minRange, maxRange, x)).ToList());
         }
 
@@ -28,15 +28,15 @@ namespace InterviewTool.src
             _interview.PrintInfo();
             Prompter.PromptForCandidate(_interview);
 
-            string prevCat = _interview.Questions.First().Category;
+            string prevCat = _interview.Questions.First().Area;
             Helpers.PrintMsgWithoutSeparator($"Category: {prevCat}", ConsoleColor.Yellow);
             foreach (var q in _interview.Questions)
             {
-                if (!prevCat.Equals(q.Category))
-                    Helpers.PrintMsgWithoutSeparator($"Category: {q.Category}", ConsoleColor.Yellow);
+                if (!prevCat.Equals(q.Area))
+                    Helpers.PrintMsgWithoutSeparator($"Category: {q.Area}", ConsoleColor.Yellow);
 
                 Prompter.PrintQuestion(q);
-                prevCat = q.Category;
+                prevCat = q.Area;
             }
             Helpers.PrintSuccessMsg("Interview finished!");
             Prompter.PromptForStrategy(_interview);

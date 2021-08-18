@@ -16,12 +16,12 @@ namespace InterviewTool.src.PrintStrategy
             if (skippedQuestions.Any())
             {
                 Helpers.PrintMsgWithoutSeparator("Skipped questions:");
-                skippedQuestions.ForEach(q => Helpers.PrintMsgWithoutSeparator(q.Ques, ConsoleColor.Red));
+                skippedQuestions.ForEach(q => Helpers.PrintMsgWithoutSeparator(q.Query, ConsoleColor.Red));
             }
 
             interview.Questions
                 .Where(q => !q.Skipped)
-                .GroupBy(q => new { q.Category })
+                .GroupBy(q => new { q.Area })
                 .Select(x => new { x.Key.Category, Average = x.Average(g => g.Grade) })
                 .ToList()
                 .ForEach(rs =>
